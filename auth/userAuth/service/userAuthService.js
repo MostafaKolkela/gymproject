@@ -4,7 +4,6 @@ const AppError = require('../../../utils/AppError')
 const generateToken = require('../../../utils/GenerateToken')
 
 const Register = async(userData)=>{
-    console.log(userData)
     const {userName , email  , password , Cpassword} = userData
     if(password !== Cpassword)
         {
