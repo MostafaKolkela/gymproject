@@ -1,7 +1,7 @@
-require('dotenv').config()
-
 const express = require('express')
 const app = express()
+const dotenv = require('dotenv')
+dotenv.config({path: './config/.env'})
 const mongoose = require('mongoose')
 const cors = require('cors')
 
