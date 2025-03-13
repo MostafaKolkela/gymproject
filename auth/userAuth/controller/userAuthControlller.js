@@ -1,10 +1,11 @@
-const authServices = require('../service/userAuthService')
-const catchAsync = require('../../../utils/CatchAsync')
+import * as authServices from '../service/userAuthService.js'
+import {catchAsync} from '../../../utils/CatchAsync.js'
 
 
 const Register = catchAsync(async(req , res , next)=>{
     const token = await authServices.Register(req.body)
     return res.status(201).json({
+        success : true,
         msg : "done",
         token
     })
@@ -18,7 +19,7 @@ const login = catchAsync(async( req, res,next)=>{
 
 
 
-module.exports = {
+export {
     login,
     Register,
 }

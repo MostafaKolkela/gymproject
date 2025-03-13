@@ -1,7 +1,7 @@
-const Repo = require('../repo/userAuthRepo')
-const bcrypt = require('bcrypt')
-const AppError = require('../../../utils/AppError')
-const generateToken = require('../../../utils/GenerateToken')
+import * as Repo from '../repo/userAuthRepo.js'
+import bcrypt from 'bcrypt'
+import {AppError} from '../../../utils/AppError.js'
+import {generateToken} from '../../../utils/GenerateToken.js'
 
 const Register = async(userData)=>{
     const {userName , email  , password , Cpassword} = userData
@@ -50,7 +50,7 @@ const login = async(email,password,res)=>{
 
 
 
-module.exports = {
+export {
     login,
     Register,
 }

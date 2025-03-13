@@ -1,10 +1,10 @@
-const express = require('express')
+import express from 'express';
 const app = express()
 app.use(express.json())
-const dotenv = require('dotenv')
+import dotenv from 'dotenv';
 dotenv.config({path: './config/.env'})
-const mongoose = require('mongoose')
-const cors = require('cors')
+import mongoose from 'mongoose'
+import cors from 'cors'
 
 const uri = process.env.MONGO_URL
 
@@ -14,8 +14,11 @@ mongoose.connect(uri).then(()=>{
 
 app.use(cors())
 
-const userRoute = require('./auth/userAuth/route/userAuthRoute')
-app.use('/auth',userRoute)
+import * as userRoute from './auth/userAuth/route/userAuthRoute.js'
+app.use('/auth',userRoute.default)
+
+import * as coachRoute from './auth/coachAuth/Route/coachRoute.js'
+app.use('/coachauth',coachRoute.default)
 
 
 app.listen(process.env.PORT || 3000,()=>{
