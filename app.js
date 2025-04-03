@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config({path: './config/.env'})
 import mongoose from 'mongoose'
 import cors from 'cors'
+import {generatePlan} from './aiPot/potController.js'
 
 const uri = process.env.MONGO_URL
 
@@ -19,6 +20,23 @@ app.use('/auth',userRoute.default)
 
 import * as coachRoute from './auth/coachAuth/Route/coachRoute.js'
 app.use('/coachauth',coachRoute.default)
+
+app.post('/generate-plan', async (req, res) => {
+  const userData = req.body;
+  
+  // التحقق من المدخلات
+  if (!userData.age || !userData.weight || !userData.height || !userData.goal || !userData.workout_days) {
+    return res.status(400).json({ error: "يجب إدخال جميع البيانات المطلوبة" });
+  }
+
+  const plan = await generatePlan(userData);
+  
+  if (plan) {
+    res.json(plan);
+  } else {
+    res.status(500).json({ error: "❌ فشل إنشاء الخطة" });
+  }
+});
 
 
 app.listen(process.env.PORT || 3000,()=>{
